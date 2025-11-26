@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr" ng-app="myApp">
+<head>
+    <meta charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/events.css">
+    <script src="angular/angular.min.js"></script>
+    
+    <title>Événements - The Voice Corp | Coopérative ESMATA</title>
+    
+  
+</head>
+<body>
+     <style>
+     /* CSS UNIQUEMENT POUR LE HEADER ET LE FOOTER (Les styles du loader ont été supprimés) */ /* Style de l'en-tête pour la couleur de fond et la lisibilité */ .event-header { background: linear-gradient(135deg, #0d6efd, #091584); color: white; padding: 80px 0 60px 0; box-shadow: 0 5px 20px rgba(0,0,0,0.2); position: relative; overflow: hidden; } /* --- CSS DU FOOTER (CONSERVÉ) --- */ .footer-collaboration { font-weight: 600; /* Couleur bleue pour la collaboration */ color: #0d6efd; margin-left: 5px; text-decoration: none; transition: color 0.3s ease; } .footer-collaboration:hover { color: #084298; /* Bleu plus foncé au survol */ text-decoration: underline; } /* Assure une bonne mise en page du footer sur mobile */ .footer-content { display: flex; flex-direction: column; align-items: center; justify-content: center; } 
+    </style>
+    <app-navbar></app-navbar>
+
+    <header class="event-header text-center">
+        <div class="container">
+            <span class="badge bg-white text-primary mb-3 px-3 py-2 rounded-pill fw-bold text-uppercase" style="letter-spacing: 1px; font-size: 0.75rem;">
+                Événement Phare
+            </span>
+            <h1 class="display-3 mb-3">Grande Journée Coopérative</h1>
+            <p class="lead mb-0 opacity-75"><i class="bi bi-calendar-event me-2"></i>Jeudi 26 Novembre 2025</p>
+            <p class="mt-2 text-white-50 small text-uppercase fw-bold ls-1">Campus ESMATA</p>
+        </div>
+    </header>
+
+    <section class="container mb-5">
+        <div class="row text-center mb-5">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="text-dark mb-3">Le Programme</h2>
+                <div style="width: 60px; height: 4px; background: #0d6efd; margin: 0 auto; border-radius: 2px;"></div>
+                <p class="text-muted mt-3">Découvrez les activités, services et divertissements prévus pour cette journée exceptionnelle.</p>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm activity-card">
+                    <div class="card-body">
+                        <div class="icon-box bg-primary bg-opacity-10 text-primary">
+                            <i class="bi bi-mic-fill"></i>
+                        </div>
+                        <h4 class="card-title h5">Ouverture Officielle</h4>
+                        <p class="card-text text-muted small">Discours solennel du président de la coopérative pour lancer les festivités.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm activity-card">
+                    <div class="card-body">
+                        <div class="icon-box bg-success bg-opacity-10 text-success">
+                            <i class="bi bi-eyeglasses"></i>
+                        </div>
+                        <h4 class="card-title h5">Campagne Santé Vue</h4>
+                        <p class="card-text text-muted small">Nettoyage de verres gratuit et distribution de cartes de consultation ophtalmologique.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm activity-card">
+                    <div class="card-body">
+                        <div class="icon-box bg-info bg-opacity-10 text-info">
+                            <i class="bi bi-car-front-fill"></i>
+                        </div>
+                        <h4 class="card-title h5">Car Wash Campus</h4>
+                        <p class="card-text text-muted small">Lavage gratuit de tous les véhicules présents dans l'enceinte du campus.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm activity-card">
+                    <div class="card-body">
+                        <div class="icon-box bg-warning bg-opacity-10 text-warning">
+                            <i class="bi bi-palette-fill"></i>
+                        </div>
+                        <h4 class="card-title h5">Art Live</h4>
+                        <p class="card-text text-muted small">Session de dessin et réalisation de portraits en direct par nos artistes.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm activity-card">
+                    <div class="card-body">
+                        <div class="icon-box bg-danger bg-opacity-10 text-danger">
+                            <i class="bi bi-heart-fill"></i>
+                        </div>
+                        <h4 class="card-title h5">Solidarité</h4>
+                        <p class="card-text text-muted small">Grande remise de dons destinée à la communauté musulmane.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm activity-card">
+                    <div class="card-body">
+                        <div class="icon-box bg-secondary bg-opacity-10 text-secondary">
+                            <i class="bi bi-cup-hot-fill"></i>
+                        </div>
+                        <h4 class="card-title h5">Pause Gourmande</h4>
+                        <p class="card-text text-muted small">Un casse-croûte géant offert pour partager un moment de convivialité.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 mt-4">
+                <div class="card border-0 overflow-hidden text-white" style="border-radius: 20px;">
+                    <div class="card-body p-5 text-center position-relative" style="background: linear-gradient(135deg, #111, #2c3e50);">
+                        <div class="position-absolute top-0 start-0 w-100 h-100" style="background: radial-gradient(circle at top right, rgba(255,193,7,0.1), transparent);"></div>
+                        
+                        <div class="position-relative z-1">
+                            <i class="bi bi-music-note-beamed display-4 mb-3 text-warning"></i>
+                            <h2 class="display-6 fw-bold">Grand Show Musical</h2>
+                            <p class="lead text-light opacity-75">Pour clôturer la journée en beauté !</p>
+                            
+                            <div class="d-flex justify-content-center gap-5 flex-wrap mt-4">
+                                <div class="text-center">
+                                    <i class="bi bi-mic fs-4 text-info d-block mb-1"></i>
+                                    <span class="small fw-bold text-uppercase">Prestations Live</span>
+                                </div>
+                                <div class="text-center">
+                                    <i class="bi bi-disc fs-4 text-warning d-block mb-1"></i>
+                                    <span class="small fw-bold text-uppercase">Play-back Contest</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+  <!-- Footer conservé avec la collaboration et le lien Facebook -->
+    <footer class="bg-white py-4 mt-5 border-top">
+        <div class="container text-center footer-content">
+            <p class="text-muted mb-0 small">
+                © 2025 The Voice Corp | Coopérative Scolaire ESMATA.
+                <span class="d-block d-sm-inline mt-1 mt-sm-0">
+                    En collaboration avec 
+                    <!-- LIEN FACEBOOK CONSERVÉ ICI -->
+                    <a href="https://web.facebook.com/maxime.lewat.1/" target="_blank" class="footer-collaboration">
+                        Dream Art Digital Studio
+                    </a>.
+                </span>
+            </p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

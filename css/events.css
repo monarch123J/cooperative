@@ -1,0 +1,58 @@
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa; /* Fond gris très clair */
+            color: #333;
+        }
+        h1, h2, h3, h4 {
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        /* --- Style du Header (Bannière) --- */
+        .event-header {
+            /* 1. Dégradé Bleu Foncé (overlay) pour assurer la lisibilité du texte 
+               2. URL de votre logo en arrière-plan
+            */
+            background: linear-gradient(135deg, rgba(10, 30, 70, 0.92) 0%, rgba(20, 50, 120, 0.88) 100%), 
+                        url('/asset/logo.jpg'); 
+            
+            background-size: contain; /* Ajuste le logo sans le déformer */
+            background-repeat: no-repeat;
+            background-position: center;
+            
+            color: white;
+            padding: 100px 0; /* Plus d'espace pour un look pro */
+            margin-bottom: 60px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        /* --- Style des Cartes (Design Épuré) --- */
+        .activity-card {
+            background: white;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.05); /* Bordure très subtile */
+            border-radius: 16px; /* Coins plus arrondis */
+            overflow: hidden;
+        }
+        
+        .activity-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.08) !important;
+            border-color: transparent;
+        }
+
+        .card-body {
+            padding: 2rem; /* Plus d'espace interne */
+        }
+
+        .icon-box {
+            width: 55px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px; /* Carré arrondi moderne au lieu de rond */
+            font-size: 1.4rem;
+            margin-bottom: 1.2rem;
+        }

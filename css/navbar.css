@@ -1,0 +1,16 @@
+/* Intégration de la police Inter pour tout le site */
+body {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400; 
+}
+
+/* Titres plus audacieux */
+h1, h2, h3 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800; 
+}
+
+/* Le nom de la marque The Voice Corp */
+.navbar-brand {
+    font-weight: 700;
+}
