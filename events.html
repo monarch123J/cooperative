@@ -3,151 +3,708 @@
 <head>
     <meta charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Liens CSS externes -->
     <link rel="stylesheet" href="css/navbar.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-
+    <link rel="shortcut icon" href="favicon.jpg" type="image/x-icon">
+    <!-- Angular -->
     <script src="angular/angular.min.js"></script>
     
     <title>Événements - The Voice Corp | Coopérative ESMATA</title>
     
-    <link rel="stylesheet" href="css/events.css">
+    <style>
+        /* --- GENERAL STYLES --- */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa; /* Fond gris très clair */
+            color: #333;
+            /* IMPORTANT : Compensation pour la navbar fixe */
+            padding-top: 85px; 
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        /* --- Style du Header (Bannière) --- */
+        .event-header {
+            /* Fond dégradé bleu foncé + Logo en filigrane */
+            background: linear-gradient(135deg, rgba(10, 30, 70, 0.92) 0%, rgba(20, 50, 120, 0.88) 100%), 
+                        url('/asset/logo.jpg');
+            
+            background-size: contain; 
+            background-repeat: no-repeat;
+            background-position: center;
+            
+            color: white;
+            padding: 80px 0; 
+            margin-bottom: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            border-radius: 0 0 30px 30px; 
+        }
+
+        /* --- PHOTO DE GROUPE --- */
+        .group-photo-wrapper {
+            position: relative;
+            margin-top: -80px; /* Chevauchement sur le header pour l'effet de style */
+            z-index: 10;
+        }
+        .group-photo-img {
+            border: 5px solid white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        /* --- TEMPS FORTS (CARTES) --- */
+        .highlight-card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+        .highlight-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .highlight-media {
+            height: 200px;
+            background-color: #000;
+            position: relative;
+        }
+        /* Style pour les balises <video> (Nouvellement ajouté) */
+        .highlight-media video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Assure que la vidéo couvre la zone sans déformation */
+        }
+        /* Ancien style (iframe) - conservé au cas où */
+        .highlight-media iframe {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* --- MATCH DE GALA (DESIGN SPORT) --- */
+        .match-card {
+            background: #fff;
+            border-radius: 20px;
+            border: 1px solid #e9ecef;
+            overflow: hidden;
+            position: relative;
+        }
+        .match-header {
+            background: #0d6efd; /* Bleu The Voice */
+            color: white;
+            padding: 15px;
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .vs-badge {
+            width: 60px;
+            height: 60px;
+            background: #dc3545; /* Rouge */
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-style: italic;
+            font-size: 1.2rem;
+            margin: 0 auto;
+            border: 4px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 2;
+            position: relative;
+        }
+        .team-logo {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+        }
+        .bus-info {
+            background-color: #e7f1ff;
+            border-left: 5px solid #0d6efd;
+            border-radius: 5px;
+        }
+
+        /* --- Footer & Collaboration --- */
+        .footer-collaboration {
+            font-weight: 600;
+            color: #0d6efd; 
+            margin-left: 5px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .footer-collaboration:hover {
+            color: #084298;
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
 
     <app-navbar></app-navbar>
 
+    <!-- HEADER : Post-Événement -->
     <header class="event-header text-center">
-        <div class="container">
-            <span class="badge bg-white text-primary mb-3 px-3 py-2 rounded-pill fw-bold text-uppercase" style="letter-spacing: 1px; font-size: 0.75rem;">
-                Événement Phare
+        <div class="container pb-5"> <!-- Padding bottom extra pour laisser place à la photo -->
+            <span class="badge bg-white text-success mb-3 px-3 py-2 rounded-pill fw-bold text-uppercase">
+                <i class="bi bi-check-circle-fill me-1"></i> Événement Réalisé avec Succès
             </span>
-            <h1 class="display-3 mb-3">Grande Journée Coopérative</h1>
-            <p class="lead mb-0 opacity-75"><i class="bi bi-calendar-event me-2"></i>Jeudi 27 Novembre 2025</p>
-            <p class="mt-2 text-white-50 small text-uppercase fw-bold ls-1">Campus ESMATA</p>
+            <h1 class="display-4 mb-3">Merci pour cette Journée Mémorable !</h1>
+            <p class="lead mb-0 opacity-75">Grande Journée Coopérative - Jeudi 26 Novembre 2025</p>
+            <p class="mt-2 text-white-50 small text-uppercase fw-bold ls-1">Organisée par The Voice Corp</p>
         </div>
     </header>
 
-    <section class="container mb-5">
-        <div class="row text-center mb-5">
-            <div class="col-lg-8 mx-auto">
-                <h2 class="text-dark mb-3">Le Programme</h2>
-                <div style="width: 60px; height: 4px; background: #0d6efd; margin: 0 auto; border-radius: 2px;"></div>
-                <p class="text-muted mt-3">Découvrez les activités, services et divertissements prévus pour cette journée exceptionnelle.</p>
-            </div>
-        </div>
-
-        <div class="row g-4">
-            
-            <div class="col-md-6 col-lg-4">
-                <div class="card h-100 shadow-sm activity-card">
-                    <div class="card-body">
-                        <div class="icon-box bg-primary bg-opacity-10 text-primary">
-                            <i class="bi bi-mic-fill"></i>
-                        </div>
-                        <h4 class="card-title h5">Ouverture Officielle</h4>
-                        <p class="card-text text-muted small">Discours solennel du président de la coopérative pour lancer les festivités.</p>
-                    </div>
+    <!-- 1. SECTION PHOTO DE GROUPE -->
+    <section class="container group-photo-wrapper mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <!-- REMPLACEZ PAR VOTRE IMAGE DE GROUPE -->
+                <img src="/asset/group.jpg" alt="Photo de groupe The Voice Corp et Étudiants" class="group-photo-img img-fluid bg-white">
+                
+                <div class="text-center mt-4">
+                    <h2 class="text-primary fw-bold">Un Grand Merci à l'Équipe !</h2>
+                    <p class="text-muted w-75 mx-auto">
+                        Merci à tous les participants, aux bénévoles et à l'administration de l'ESMATA. 
+                        C'est grâce à votre énergie que cette journée restera gravée dans les mémoires.
+                    </p>
                 </div>
             </div>
-
-            <div class="col-md-6 col-lg-4">
-                <div class="card h-100 shadow-sm activity-card">
-                    <div class="card-body">
-                        <div class="icon-box bg-success bg-opacity-10 text-success">
-                            <i class="bi bi-eyeglasses"></i>
-                        </div>
-                        <h4 class="card-title h5">Campagne Santé Vue</h4>
-                        <p class="card-text text-muted small">Nettoyage de verres gratuit et distribution de cartes de consultation ophtalmologique.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4">
-                <div class="card h-100 shadow-sm activity-card">
-                    <div class="card-body">
-                        <div class="icon-box bg-info bg-opacity-10 text-info">
-                            <i class="bi bi-car-front-fill"></i>
-                        </div>
-                        <h4 class="card-title h5">Car Wash Campus</h4>
-                        <p class="card-text text-muted small">Lavage gratuit de tous les véhicules présents dans l'enceinte du campus.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4">
-                <div class="card h-100 shadow-sm activity-card">
-                    <div class="card-body">
-                        <div class="icon-box bg-warning bg-opacity-10 text-warning">
-                            <i class="bi bi-palette-fill"></i>
-                        </div>
-                        <h4 class="card-title h5">Art Live</h4>
-                        <p class="card-text text-muted small">Session de dessin et réalisation de portraits en direct par nos artistes.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4">
-                <div class="card h-100 shadow-sm activity-card">
-                    <div class="card-body">
-                        <div class="icon-box bg-danger bg-opacity-10 text-danger">
-                            <i class="bi bi-heart-fill"></i>
-                        </div>
-                        <h4 class="card-title h5">Solidarité</h4>
-                        <p class="card-text text-muted small">Grande remise de dons destinée à la communauté musulmane.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4">
-                <div class="card h-100 shadow-sm activity-card">
-                    <div class="card-body">
-                        <div class="icon-box bg-secondary bg-opacity-10 text-secondary">
-                            <i class="bi bi-cup-hot-fill"></i>
-                        </div>
-                        <h4 class="card-title h5">Pause Gourmande</h4>
-                        <p class="card-text text-muted small">Un casse-croûte géant offert pour partager un moment de convivialité.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 mt-4">
-                <div class="card border-0 overflow-hidden text-white" style="border-radius: 20px;">
-                    <div class="card-body p-5 text-center position-relative" style="background: linear-gradient(135deg, #111, #2c3e50);">
-                        <div class="position-absolute top-0 start-0 w-100 h-100" style="background: radial-gradient(circle at top right, rgba(255,193,7,0.1), transparent);"></div>
-                        
-                        <div class="position-relative z-1">
-                            <i class="bi bi-music-note-beamed display-4 mb-3 text-warning"></i>
-                            <h2 class="display-6 fw-bold">Grand Show Musical</h2>
-                            <p class="lead text-light opacity-75">Pour clôturer la journée en beauté !</p>
-                            
-                            <div class="d-flex justify-content-center gap-5 flex-wrap mt-4">
-                                <div class="text-center">
-                                    <i class="bi bi-mic fs-4 text-info d-block mb-1"></i>
-                                    <span class="small fw-bold text-uppercase">Prestations Live</span>
-                                </div>
-                                <div class="text-center">
-                                    <i class="bi bi-disc fs-4 text-warning d-block mb-1"></i>
-                                    <span class="small fw-bold text-uppercase">Play-back Contest</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </section>
 
-     <!-- Footer conservé avec la collaboration et le lien Facebook -->
+<!-- 
+    <section class="container mb-5">
+        <div class="row text-center mb-4">
+            <div class="col-12">
+                <h3 class="fw-bold text-dark">Les Temps Forts en Vidéo</h3>
+                <div style="width: 50px; height: 3px; background: #0d6efd; margin: 10px auto;"></div>
+                <p class="text-muted">Revivez les meilleurs moments de l'arrivée au show final.</p>
+            </div>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+      
+            <div class="col-md-4">
+                <div class="card highlight-card shadow-sm h-100">
+                    <div class="highlight-media">
+                     
+                        <video controls poster="/asset/video/thumbnail_1.jpg">
+                            <source src="asset/video/arive.mp4" type="video/mp4">
+                            Votre navigateur ne supporte pas la balise vidéo.
+                        </video>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold text-primary">L'Arrivée & Accueil</h5>
+                        <p class="card-text text-secondary small">
+                            Une entrée spectaculaire des étudiants et des invités. L'ambiance était déjà électrique dès les premières minutes avec un accueil chaleureux et musical.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+       
+            <div class="col-md-4">
+                <div class="card highlight-card shadow-sm h-100">
+                    <div class="highlight-media">
+                       
+                        <video controls poster="/asset/video/thumbnail_2.jpg">
+                            <source src="/asset/video/arive.mp4" type="video/mp4">
+                            Votre navigateur ne supporte pas la balise vidéo.
+                        </video>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold text-primary">Le Cœur de l'Événement</h5>
+                        <p class="card-text text-secondary small">
+                            Retour sur les activités phares : le Car Wash solidaire, la campagne de santé vue et les moments de partage autour du repas communautaire.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+           
+             <div class="col-md-4">
+                <div class="card highlight-card shadow-sm h-100">
+                    <div class="highlight-media">
+                    
+                        <video controls poster="/asset/video/thumbnail_3.jpg">
+                            <source src="/asset/video/highlight_3_show.mp4" type="video/mp4">
+                            Votre navigateur ne supporte pas la balise vidéo.
+                        </video>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold text-primary">Le Show Final</h5>
+                        <p class="card-text text-secondary small">
+                            Clôture en apothéose avec les prestations live et le concours de playback. Une énergie incroyable sur scène !
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- 3. NOUVEL ÉVÉNEMENT : MATCH DE GALA (Vendredi 28) -->
+    <section class="container mb-5 py-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="match-card shadow-lg">
+                    
+                    <!-- En-tête de la carte -->
+                    <div class="match-header">
+                        <i class="bi bi-trophy-fill me-2 text-warning"></i> Match de Gala - Football
+                    </div>
+
+                    <div class="card-body p-4 p-md-5">
+                        <!-- Patronage -->
+                        <div class="text-center mb-4">
+                            <p class="text-uppercase text-muted small fw-bold mb-1">Sous le haut patronage du Président</p>
+                            <h4 class="font-monospace text-dark">M. Nke Menouna Christin Hausser</h4>
+                            <div class="badge bg-light text-primary border mt-2">Organisé par Le Groupe The Voice</div>
+                        </div>
+
+                        <!-- Le Versus (Équipes) -->
+                        <div class="row align-items-center justify-content-center my-5">
+                            <!-- Équipe 1 -->
+                            <div class="col-4 text-center">
+                                <!-- Logo Bleu Gauche -->
+                                <img src="/asset/club_logo_blue.png" alt="Logo Club 1" class="team-logo mb-2"> 
+                                <h3 class="fw-bold mb-0">Niveau 1</h3>
+                            </div>
+                            
+                            <!-- VS -->
+                            <div class="col-2 text-center position-relative">
+                                <div class="vs-badge">VS</div>
+                            </div>
+                            
+                            <!-- Équipe 2 -->
+                            <div class="col-4 text-center">
+                                <!-- Logo Bleu Droite -->
+                                <img src="/asset/club_logo_blue.png" alt="Logo Club 2" class="team-logo mb-2">
+                                <h3 class="fw-bold mb-0">Niveau 2</h3>
+                            </div>
+                        </div>
+
+                        <hr class="my-4 text-muted">
+
+                        <!-- Détails (Lieu, Date, Heure) -->
+                        <div class="row text-center g-3">
+                            <div class="col-md-4">
+                                <div class="p-2">
+                                    <i class="bi bi-calendar-event text-primary fs-3 d-block mb-1"></i>
+                                    <span class="fw-bold d-block">Vendredi 28 Nov. 2025</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-2">
+                                    <i class="bi bi-clock-history text-primary fs-3 d-block mb-1"></i>
+                                    <span class="fw-bold d-block">10h30 Précises</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-2">
+                                    <i class="bi bi-geo-alt-fill text-danger fs-3 d-block mb-1"></i>
+                                    <span class="fw-bold d-block">Stade Etoudi Yannick Noah</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Info Bus -->
+                        <div class="bus-info p-3 mt-4 d-flex align-items-center justify-content-center">
+                            <i class="bi bi-bus-front-fill fs-2 text-primary me-3"></i>
+                            <div class="text-start">
+                                <h6 class="fw-bold mb-0 text-dark">Transport Assuré par ESMATA</h6>
+                                <small class="text-secondary">Le bus de l'école est disponible pour accompagner les étudiants (Aller & Retour).</small>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. HISTORIQUE RAPIDE (Liste simple) -->
+    <section class="container mb-5 opacity-50">
+        <p class="text-center small text-muted">Archives : Programme du Jeudi 26 (Ouverture, Santé Vue, Solidarité, Show Musical)</p>
+    </section>
+
+    <!-- Footer -->
     <footer class="bg-white py-4 mt-5 border-top">
         <div class="container text-center footer-content">
             <p class="text-muted mb-0 small">
                 © 2025 The Voice Corp | Coopérative Scolaire ESMATA.
                 <span class="d-block d-sm-inline mt-1 mt-sm-0">
                     En collaboration avec 
-                    <!-- LIEN FACEBOOK CONSERVÉ ICI -->
+                    <a href="https://web.facebook.com/maxime.lewat.1/" target="_blank" class="footer-collaboration">
+                        Dream Art Digital Studio
+                    </a>.
+                </span>
+            </p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html><!DOCTYPE html>
+<html lang="fr" ng-app="myApp">
+<head>
+    <meta charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Liens CSS externes -->
+    <link rel="stylesheet" href="css/navbar.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.jpg" type="image/x-icon">
+    <!-- Angular -->
+    <script src="angular/angular.min.js"></script>
+    
+    <title>Événements - The Voice Corp | Coopérative ESMATA</title>
+    
+    <style>
+        /* --- GENERAL STYLES --- */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa; /* Fond gris très clair */
+            color: #333;
+            /* IMPORTANT : Compensation pour la navbar fixe */
+            padding-top: 85px; 
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        /* --- Style du Header (Bannière) --- */
+        .event-header {
+            /* Fond dégradé bleu foncé + Logo en filigrane */
+            background: linear-gradient(135deg, rgba(10, 30, 70, 0.92) 0%, rgba(20, 50, 120, 0.88) 100%), 
+                        url('/asset/logo.jpg');
+            
+            background-size: contain; 
+            background-repeat: no-repeat;
+            background-position: center;
+            
+            color: white;
+            padding: 80px 0; 
+            margin-bottom: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            border-radius: 0 0 30px 30px; 
+        }
+
+        /* --- PHOTO DE GROUPE --- */
+        .group-photo-wrapper {
+            position: relative;
+            margin-top: -80px; /* Chevauchement sur le header pour l'effet de style */
+            z-index: 10;
+        }
+        .group-photo-img {
+            border: 5px solid white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        /* --- TEMPS FORTS (CARTES) --- */
+        .highlight-card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+        .highlight-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .highlight-media {
+            height: 200px;
+            background-color: #000;
+            position: relative;
+        }
+        /* Style pour les balises <video> (Nouvellement ajouté) */
+        .highlight-media video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Assure que la vidéo couvre la zone sans déformation */
+        }
+        /* Ancien style (iframe) - conservé au cas où */
+        .highlight-media iframe {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* --- MATCH DE GALA (DESIGN SPORT) --- */
+        .match-card {
+            background: #fff;
+            border-radius: 20px;
+            border: 1px solid #e9ecef;
+            overflow: hidden;
+            position: relative;
+        }
+        .match-header {
+            background: #0d6efd; /* Bleu The Voice */
+            color: white;
+            padding: 15px;
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .vs-badge {
+            width: 60px;
+            height: 60px;
+            background: #dc3545; /* Rouge */
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-style: italic;
+            font-size: 1.2rem;
+            margin: 0 auto;
+            border: 4px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 2;
+            position: relative;
+        }
+        .team-logo {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+        }
+        .bus-info {
+            background-color: #e7f1ff;
+            border-left: 5px solid #0d6efd;
+            border-radius: 5px;
+        }
+
+        /* --- Footer & Collaboration --- */
+        .footer-collaboration {
+            font-weight: 600;
+            color: #0d6efd; 
+            margin-left: 5px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .footer-collaboration:hover {
+            color: #084298;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <app-navbar></app-navbar>
+
+    <!-- HEADER : Post-Événement -->
+    <header class="event-header text-center">
+        <div class="container pb-5"> <!-- Padding bottom extra pour laisser place à la photo -->
+            <span class="badge bg-white text-success mb-3 px-3 py-2 rounded-pill fw-bold text-uppercase">
+                <i class="bi bi-check-circle-fill me-1"></i> Événement Réalisé avec Succès
+            </span>
+            <h1 class="display-4 mb-3">Merci pour cette Journée Mémorable !</h1>
+            <p class="lead mb-0 opacity-75">Grande Journée Coopérative - Jeudi 26 Novembre 2025</p>
+            <p class="mt-2 text-white-50 small text-uppercase fw-bold ls-1">Organisée par The Voice Corp</p>
+        </div>
+    </header>
+
+    <!-- 1. SECTION PHOTO DE GROUPE -->
+    <section class="container group-photo-wrapper mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <!-- REMPLACEZ PAR VOTRE IMAGE DE GROUPE -->
+                <img src="/asset/group.jpg" alt="Photo de groupe The Voice Corp et Étudiants" class="group-photo-img img-fluid bg-white">
+                
+                <div class="text-center mt-4">
+                    <h2 class="text-primary fw-bold">Un Grand Merci à l'Équipe !</h2>
+                    <p class="text-muted w-75 mx-auto">
+                        Merci à tous les participants, aux bénévoles et à l'administration de l'ESMATA. 
+                        C'est grâce à votre énergie que cette journée restera gravée dans les mémoires.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- 
+    <section class="container mb-5">
+        <div class="row text-center mb-4">
+            <div class="col-12">
+                <h3 class="fw-bold text-dark">Les Temps Forts en Vidéo</h3>
+                <div style="width: 50px; height: 3px; background: #0d6efd; margin: 10px auto;"></div>
+                <p class="text-muted">Revivez les meilleurs moments de l'arrivée au show final.</p>
+            </div>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+      
+            <div class="col-md-4">
+                <div class="card highlight-card shadow-sm h-100">
+                    <div class="highlight-media">
+                     
+                        <video controls poster="/asset/video/thumbnail_1.jpg">
+                            <source src="asset/video/arive.mp4" type="video/mp4">
+                            Votre navigateur ne supporte pas la balise vidéo.
+                        </video>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold text-primary">L'Arrivée & Accueil</h5>
+                        <p class="card-text text-secondary small">
+                            Une entrée spectaculaire des étudiants et des invités. L'ambiance était déjà électrique dès les premières minutes avec un accueil chaleureux et musical.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+       
+            <div class="col-md-4">
+                <div class="card highlight-card shadow-sm h-100">
+                    <div class="highlight-media">
+                       
+                        <video controls poster="/asset/video/thumbnail_2.jpg">
+                            <source src="/asset/video/arive.mp4" type="video/mp4">
+                            Votre navigateur ne supporte pas la balise vidéo.
+                        </video>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold text-primary">Le Cœur de l'Événement</h5>
+                        <p class="card-text text-secondary small">
+                            Retour sur les activités phares : le Car Wash solidaire, la campagne de santé vue et les moments de partage autour du repas communautaire.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+           
+             <div class="col-md-4">
+                <div class="card highlight-card shadow-sm h-100">
+                    <div class="highlight-media">
+                    
+                        <video controls poster="/asset/video/thumbnail_3.jpg">
+                            <source src="/asset/video/highlight_3_show.mp4" type="video/mp4">
+                            Votre navigateur ne supporte pas la balise vidéo.
+                        </video>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold text-primary">Le Show Final</h5>
+                        <p class="card-text text-secondary small">
+                            Clôture en apothéose avec les prestations live et le concours de playback. Une énergie incroyable sur scène !
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- 3. NOUVEL ÉVÉNEMENT : MATCH DE GALA (Vendredi 28) -->
+    <section class="container mb-5 py-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="match-card shadow-lg">
+                    
+                    <!-- En-tête de la carte -->
+                    <div class="match-header">
+                        <i class="bi bi-trophy-fill me-2 text-warning"></i> Match de Gala - Football
+                    </div>
+
+                    <div class="card-body p-4 p-md-5">
+                        <!-- Patronage -->
+                        <div class="text-center mb-4">
+                            <p class="text-uppercase text-muted small fw-bold mb-1">Sous le haut patronage du Président</p>
+                            <h4 class="font-monospace text-dark">M. Nke Menouna Christin Hausser</h4>
+                            <div class="badge bg-light text-primary border mt-2">Organisé par Le Groupe The Voice</div>
+                        </div>
+
+                        <!-- Le Versus (Équipes) -->
+                        <div class="row align-items-center justify-content-center my-5">
+                            <!-- Équipe 1 -->
+                            <div class="col-4 text-center">
+                                <!-- Logo Bleu Gauche -->
+                                <img src="/asset/club_logo_blue.png" alt="Logo Club 1" class="team-logo mb-2"> 
+                                <h3 class="fw-bold mb-0">Niveau 1</h3>
+                            </div>
+                            
+                            <!-- VS -->
+                            <div class="col-2 text-center position-relative">
+                                <div class="vs-badge">VS</div>
+                            </div>
+                            
+                            <!-- Équipe 2 -->
+                            <div class="col-4 text-center">
+                                <!-- Logo Bleu Droite -->
+                                <img src="/asset/club_logo_blue.png" alt="Logo Club 2" class="team-logo mb-2">
+                                <h3 class="fw-bold mb-0">Niveau 2</h3>
+                            </div>
+                        </div>
+
+                        <hr class="my-4 text-muted">
+
+                        <!-- Détails (Lieu, Date, Heure) -->
+                        <div class="row text-center g-3">
+                            <div class="col-md-4">
+                                <div class="p-2">
+                                    <i class="bi bi-calendar-event text-primary fs-3 d-block mb-1"></i>
+                                    <span class="fw-bold d-block">Vendredi 28 Nov. 2025</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-2">
+                                    <i class="bi bi-clock-history text-primary fs-3 d-block mb-1"></i>
+                                    <span class="fw-bold d-block">10h30 Précises</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-2">
+                                    <i class="bi bi-geo-alt-fill text-danger fs-3 d-block mb-1"></i>
+                                    <span class="fw-bold d-block">Stade Etoudi Yannick Noah</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Info Bus -->
+                        <div class="bus-info p-3 mt-4 d-flex align-items-center justify-content-center">
+                            <i class="bi bi-bus-front-fill fs-2 text-primary me-3"></i>
+                            <div class="text-start">
+                                <h6 class="fw-bold mb-0 text-dark">Transport Assuré par ESMATA</h6>
+                                <small class="text-secondary">Le bus de l'école est disponible pour accompagner les étudiants (Aller & Retour).</small>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. HISTORIQUE RAPIDE (Liste simple) -->
+    <section class="container mb-5 opacity-50">
+        <p class="text-center small text-muted">Archives : Programme du Jeudi 26 (Ouverture, Santé Vue, Solidarité, Show Musical)</p>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white py-4 mt-5 border-top">
+        <div class="container text-center footer-content">
+            <p class="text-muted mb-0 small">
+                © 2025 The Voice Corp | Coopérative Scolaire ESMATA.
+                <span class="d-block d-sm-inline mt-1 mt-sm-0">
+                    En collaboration avec 
                     <a href="https://web.facebook.com/maxime.lewat.1/" target="_blank" class="footer-collaboration">
                         Dream Art Digital Studio
                     </a>.
@@ -160,4 +717,3 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
